@@ -7,21 +7,21 @@ import autoTable from "jspdf-autotable";
 const MyOrders = () => {
     const { user } = useContext(AuthContext);
     const [myOrders, setMyOrders] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         if (user?.email) {
-            console.log("Logged in user email:", user.email);
-            const url = `https://missionscic10-eight.vercel.app/orders?email=${user.email}`;
-            console.log("API URL:", url);
-            
-            axios.get(url)
+            axios.get(`https://missionscic10-eight.vercel.app/orders?email=${user.email}`)
                 .then(res => {
-                    console.log("Response data:", res.data);
                     setMyOrders(res.data);
+                    setLoading(false);
                 })
                 .catch(err => {
-                    console.log("Error:", err);
+                    console.log(err);
+                    setLoading(false);
                 });
+        } else {
+            setLoading(false);
         }
     }, [user?.email]);
 
@@ -60,6 +60,14 @@ const MyOrders = () => {
 
         doc.save(`My_Orders_${new Date().getTime()}.pdf`);
     };
+
+    if (loading) {
+        return (
+            <div className="flex justify-center items-center min-h-[calc(100vh-200px)]">
+                <span className="loading loading-spinner loading-lg text-primary w-24 h-24"></span>
+            </div>
+        );
+    }
 
     return (
         <div className="overflow-x-auto min-h-[calc(100vh-200px)] shadow-xl p-4 sm:p-6 md:p-10 lg:p-14 space-y-4 sm:space-y-6">

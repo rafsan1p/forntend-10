@@ -16,6 +16,9 @@ createRoot(document.getElementById('root')).render(
     <Toaster
       position="top-right"
       reverseOrder={false}
+      toastOptions={{
+        duration: 2500
+      }}
     />
   </StrictMode>,
 )

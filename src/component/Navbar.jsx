@@ -19,7 +19,7 @@ const Navbar = () => {
   }, [isChecked]);
 
   const handleSignOut = () => {
-    toast.success('Logout Successful!');
+    toast.success("Logout Successful!");
     signOut(auth);
   };
 
@@ -67,18 +67,19 @@ const Navbar = () => {
                 Services
               </NavLink>
             </li>
-            <li>
-              <NavLink
-                to={"/profile"}
-                className={({ isActive }) =>
-                  isActive ? "text-primary font-bold" : ""
-                }
-              >
-                My Profile
-              </NavLink>
-            </li>
+
             {user && (
               <>
+                <li>
+                  <NavLink
+                    to={"/profile"}
+                    className={({ isActive }) =>
+                      isActive ? "text-primary font-bold" : ""
+                    }
+                  >
+                    My Profile
+                  </NavLink>
+                </li>
                 <li>
                   <NavLink
                     to={"/add-services"}
@@ -137,18 +138,19 @@ const Navbar = () => {
               Services
             </NavLink>
           </li>
-          <li>
-            <NavLink
-              to={"/profile"}
-              className={({ isActive }) =>
-                isActive ? "text-primary font-bold" : ""
-              }
-            >
-              My Profile
-            </NavLink>
-          </li>
+
           {user && (
             <>
+              <li>
+                <NavLink
+                  to={"/profile"}
+                  className={({ isActive }) =>
+                    isActive ? "text-primary font-bold" : ""
+                  }
+                >
+                  My Profile
+                </NavLink>
+              </li>
               <li>
                 <NavLink
                   to={"/add-services"}
@@ -186,7 +188,8 @@ const Navbar = () => {
 
       <div className="navbar-end">
         <label className="toggle text-base-content">
-          <input onClick={handleThemeChange}
+          <input
+            onClick={handleThemeChange}
             type="checkbox"
             value="synthwave"
             className="theme-controller"

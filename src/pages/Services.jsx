@@ -6,13 +6,29 @@ const Services = () => {
 
     const [services, setServices] = useState([]);
     const [category, setCategory] = useState('');
+    const [loading, setLoading] = useState(true);
     
         useEffect(() => {
+            setLoading(true);
             fetch(`https://missionscic10-eight.vercel.app/services?category=${category}`)
             .then((res) => res.json())
-            .then((data) => setServices(data))
-            .catch((err) => console.log(err));
+            .then((data) => {
+                setServices(data);
+                setLoading(false);
+            })
+            .catch((err) => {
+                console.log(err);
+                setLoading(false);
+            });
         }, [category]);
+
+    if (loading) {
+        return (
+            <div className="flex justify-center items-center min-h-[calc(100vh-200px)]">
+                <span className="loading loading-spinner loading-lg text-primary w-24 h-24"></span>
+            </div>
+        );
+    }
 
     return (
         <div className="my-8 px-4 sm:px-8 md:px-16 lg:px-32 xl:px-[145px]">
