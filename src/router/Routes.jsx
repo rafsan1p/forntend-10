@@ -13,6 +13,7 @@ import AddService from "../pages/AddService";
 import MyServices from "../pages/MyServices";
 import UpdateService from "../pages/UpdateService";
 import MyOrders from "../pages/MyOrders";
+import CategoryPage from "../pages/CategoryPage";
 
 
 const router = createBrowserRouter([
@@ -64,6 +65,10 @@ const router = createBrowserRouter([
       {
         path: '/update-services/:id',
         element: <UpdateService></UpdateService>
+      },
+      {
+        path: '/category/:categoryName',
+        element: <CategoryPage></CategoryPage>
       }
     ]
   },

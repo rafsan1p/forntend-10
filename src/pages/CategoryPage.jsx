@@ -1,36 +1,31 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { motion } from "framer-motion";
-import { MapPin, Tag, Calendar, Heart, Filter } from "lucide-react";
+import { MapPin, Tag, Calendar, Heart, ArrowLeft } from "lucide-react";
 
-const Services = () => {
+const CategoryPage = () => {
+    const { categoryName } = useParams();
     const [services, setServices] = useState([]);
-    const [category, setCategory] = useState('');
     const [loading, setLoading] = useState(true);
-    const [searchParams] = useSearchParams();
+    const navigate = useNavigate();
 
-    useEffect(() => {
-        const categoryFromUrl = searchParams.get('category');
-        if (categoryFromUrl) {
-            setCategory(categoryFromUrl);
-        }
-    }, [searchParams]);
-    
     useEffect(() => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
-        
         setLoading(true);
-        fetch(`https://missionscic10-eight.vercel.app/services?category=${category}`)
-        .then((res) => res.json())
-        .then((data) => {
-            setServices(data);
-            setLoading(false);
-        })
-        .catch((err) => {
-            console.log(err);
-            setLoading(false);
-        });
-    }, [category]);
+
+        const url = `https://missionscic10-eight.vercel.app/services?category=${categoryName}`;
+
+        fetch(url)
+            .then(res => res.json())
+            .then(data => {
+                setServices(data);
+                setLoading(false);
+            })
+            .catch(err => {
+                console.log(err);
+                setLoading(false);
+            });
+    }, [categoryName]);
 
     if (loading) {
         return (
@@ -42,38 +37,29 @@ const Services = () => {
 
     return (
         <div className="min-h-[calc(100vh-200px)] my-12 px-4 sm:px-8 md:px-16 lg:px-32">
-            {/* Header Section */}
-            <div className="text-center mb-8">
-                <h2 className="text-3xl md:text-4xl font-bold text-blue-700 dark:text-blue-300  tracking-tight mb-3">
-                    Pets & Available Products
-                </h2>
-                <p className="text-blue-600 dark:text-blue-300 font-semibold tracking-tight text-lg">Browse all available listings</p>
-            </div>
+            {/* Back Button */}
+            <button 
+                onClick={() => navigate(-1)} 
+                className="flex items-center gap-2 mb-6 text-blue-600 font-semibold hover:text-blue-800"
+            >
+                <ArrowLeft size={20} /> Back
+            </button>
 
-            {/* Filter Section */}
-            <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mb-8 bg-white p-4 rounded-xl shadow-md">
-                <div className="flex items-center gap-2 text-gray-600">
-                    <Filter size={20} />
-                    <span className="font-semibold">Filter by Category:</span>
-                </div>
-                <select 
-                    onChange={(e) => setCategory(e.target.value)} 
-                    value={category}
-                    className="select select-bordered w-full sm:w-64 bg-white"
-                >
-                    <option value="">All Categories</option>
-                    <option value="Pets">🐶 Pets</option>
-                    <option value="Food">🍖 Pet Food</option>
-                    <option value="Accessories">🧸 Accessories</option>
-                    <option value="Care Products">💊 Care Products</option>
-                </select>
+            {/* Header */}
+            <div className="text-center mb-8">
+                <h2 className="text-3xl md:text-4xl font-bold text-blue-600 dark:text-blue-300 tracking-tight mb-3">
+                    {categoryName} Listings
+                </h2>
+                <p className="text-blue-600 dark:text-blue-300 font-semibold tracking-tight text-lg">
+                    Browse all available {categoryName.toLowerCase()} listings
+                </p>
             </div>
 
             {/* Results Count */}
             <div className="mb-6">
                 <p className="text-gray-600">
                     Showing <span className="font-bold text-gray-800">{services.length}</span> results
-                    {category && <span> in <span className="font-bold text-purple-600">{category}</span></span>}
+                    {categoryName && <span> in <span className="font-bold text-purple-600">{categoryName}</span></span>}
                 </p>
             </div>
 
@@ -88,33 +74,28 @@ const Services = () => {
                         whileHover={{ y: -8 }}
                         className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group"
                     >
-                        {/* Image Section */}
                         <div className="relative h-64 overflow-hidden">
                             <img 
                                 src={service?.image} 
                                 alt={service?.name}
                                 className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
                             />
-                            {/* Category Badge */}
                             <div className="absolute top-4 left-4">
                                 <span className="flex items-center gap-1 bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-full text-sm font-semibold text-gray-800">
                                     <Tag size={14} />
                                     {service?.category}
                                 </span>
                             </div>
-                            {/* Favorite Icon */}
                             <button className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm p-2 rounded-full hover:bg-rose-500 hover:text-white transition-colors">
                                 <Heart size={18} />
                             </button>
                         </div>
 
-                        {/* Content Section */}
                         <div className="p-6">
                             <h3 className="text-xl font-bold text-gray-800 mb-3 line-clamp-1">
                                 {service?.name}
                             </h3>
 
-                            {/* Info Grid */}
                             <div className="space-y-2 mb-4">
                                 <div className="flex items-center gap-2 text-gray-600">
                                     <MapPin size={16} className="text-blue-500" />
@@ -126,7 +107,6 @@ const Services = () => {
                                 </div>
                             </div>
 
-                            {/* Price & Button */}
                             <div className="flex items-center justify-between pt-4 border-t border-gray-100">
                                 <div>
                                     {service?.price === 0 ? (
@@ -149,7 +129,6 @@ const Services = () => {
                 ))}
             </div>
 
-            {/* Empty State */}
             {services.length === 0 && (
                 <div className="text-center py-20">
                     <div className="text-6xl mb-4">🔍</div>
@@ -161,4 +140,4 @@ const Services = () => {
     );
 };
 
-export default Services;
+export default CategoryPage;

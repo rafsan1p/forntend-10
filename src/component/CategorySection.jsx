@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
 
 const CategorySection = () => {
     const navigate = useNavigate();
@@ -61,32 +60,25 @@ const CategorySection = () => {
     ];
 
     const handleCategoryClick = (categoryName) => {
-        navigate(`/services?category=${categoryName}`);
+        navigate(`/category/${categoryName}`);
     };
+
 
     return (
         <div className="mt-12 mb-16 px-4 sm:px-8 md:px-16 lg:px-32">
             <div className="text-center mb-12">
-                <motion.h2 
-                    initial={{ opacity: 0, y: -20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="text-3xl md:text-4xl font-bold text-blue-500 dark:text-blue-300  tracking-tight mb-3"
-                >
+                <h2 className="text-3xl md:text-4xl font-bold text-blue-700 dark:text-blue-300 tracking-tight mb-3">
                     Browse by Category
-                </motion.h2>
-                <p className="font-bold text-blue-500 dark:text-blue-300  tracking-tight text-lg">Find exactly what you're looking for</p>
+                </h2>
+                <p className="font-bold text-blue-600 dark:text-blue-300 tracking-tight text-lg">Find exactly what you're looking for</p>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                {categories.map((category, index) => (
-                    <motion.div
+                {categories.map((category) => (
+                    <div
                         key={category.id}
-                        initial={{ opacity: 0, y: 50 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: index * 0.1 }}
-                        whileHover={{ y: -10, scale: 1.02 }}
                         onClick={() => handleCategoryClick(category.name)}
-                        className="relative group cursor-pointer rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300"
+                        className="relative group cursor-pointer rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 hover:scale-105"
                     >
                         <div className="h-64 relative overflow-hidden">
                             <img 
@@ -115,7 +107,7 @@ const CategorySection = () => {
                                 </svg>
                             </div>
                         </div>
-                    </motion.div>
+                    </div>
                 ))}
             </div>
         </div>

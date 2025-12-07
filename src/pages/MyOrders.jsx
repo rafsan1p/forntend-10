@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useLayoutEffect, useState } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
@@ -25,6 +25,11 @@ const MyOrders = () => {
             setLoading(false);
         }
     }, [user?.email]);
+
+    useLayoutEffect(() => {
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+    }, []);
 
     const handleDownloadPDF = () => {
         const doc = new jsPDF();

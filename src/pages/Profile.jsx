@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useLayoutEffect, useState } from 'react';
 import { AuthContext } from '../Provider/AuthProvider';
 import { updateProfile } from 'firebase/auth';
 import auth from '../firebase/firebase.config';
@@ -11,6 +11,10 @@ const Profile = () => {
         photoUrl: user?.photoURL || ''
     });
     
+    useLayoutEffect(() => {
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+    }, []);
 
     const handleOpenForm = () => {
         setIsOpen(!isOpen);
