@@ -5,7 +5,11 @@ import { MapPin, Tag, Calendar, Heart } from "lucide-react";
 const PopularSection = () => {
     const [services, setServices] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [favorites, setFavorites] = useState({});
+    const [favorites, setFavorites] = useState(() => {
+        // localStorage থেকে favorites load করা
+        const saved = localStorage.getItem('petFavorites');
+        return saved ? JSON.parse(saved) : {};
+    });
 
     useEffect(() => {
         fetch("https://missionscic10-eight.vercel.app/services")
@@ -21,10 +25,15 @@ const PopularSection = () => {
     }, []);
 
     const toggleFavorite = (serviceId) => {
-        setFavorites(prev => ({
-            ...prev,
-            [serviceId]: !prev[serviceId]
-        }));
+        setFavorites(prev => {
+            const newFavorites = {
+                ...prev,
+                [serviceId]: !prev[serviceId]
+            };
+            // localStorage এ save করা
+            localStorage.setItem('petFavorites', JSON.stringify(newFavorites));
+            return newFavorites;
+        });
     };
 
     if (loading) {
@@ -38,10 +47,10 @@ const PopularSection = () => {
     return (
         <div className="mt-16 mb-20 px-4 sm:px-8 md:px-16 lg:px-32">
             <div className="text-center mb-12">
-                <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-3">
-                    Recent Listings
+                <h2 className="text-3xl md:text-4xl font-bold text-blue-700 dark:text-blue-300 tracking-tight mb-3">
+                    Popular Services
                 </h2>
-                <p className="text-gray-600 text-lg">Latest pets and products available for adoption</p>
+                <p className="font-bold text-blue-700 dark:text-blue-300 tracking-tight text-lg">Latest pets and products available for adoption</p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">

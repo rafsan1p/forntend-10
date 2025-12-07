@@ -8,6 +8,11 @@ const Services = () => {
     const [category, setCategory] = useState('');
     const [loading, setLoading] = useState(true);
     const [searchParams] = useSearchParams();
+    const [favorites, setFavorites] = useState(() => {
+        // localStorage থেকে favorites load করা
+        const saved = localStorage.getItem('petFavorites');
+        return saved ? JSON.parse(saved) : {};
+    });
 
     useEffect(() => {
         const categoryFromUrl = searchParams.get('category');
@@ -32,6 +37,18 @@ const Services = () => {
         });
     }, [category]);
 
+    const toggleFavorite = (serviceId) => {
+        setFavorites(prev => {
+            const newFavorites = {
+                ...prev,
+                [serviceId]: !prev[serviceId]
+            };
+            // localStorage এ save করা
+            localStorage.setItem('petFavorites', JSON.stringify(newFavorites));
+            return newFavorites;
+        });
+    };
+
     if (loading) {
         return (
             <div className="flex justify-center items-center min-h-[calc(100vh-200px)]">
@@ -44,7 +61,7 @@ const Services = () => {
         <div className="min-h-[calc(100vh-200px)] my-12 px-4 sm:px-8 md:px-16 lg:px-32">
             {/* Header Section */}
             <div className="text-center mb-8">
-                <h2 className="text-3xl md:text-4xl font-bold text-blue-700 dark:text-blue-300  tracking-tight mb-3">
+                <h2 className="text-3xl md:text-4xl font-bold text-blue-700 dark:text-blue-300 tracking-tight mb-3">
                     Pets & Available Products
                 </h2>
                 <p className="text-blue-600 dark:text-blue-300 font-semibold tracking-tight text-lg">Browse all available listings</p>
@@ -78,22 +95,21 @@ const Services = () => {
             </div>
 
             {/* Services Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
                 {services.map((service, index) => (
                     <motion.div
                         key={service._id}
-                        initial={{ opacity: 0, scale: 0.9 }}
+                        initial={{ opacity: 0, scale: 0.8 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: index * 0.05, duration: 0.3 }}
-                        whileHover={{ y: -8 }}
-                        className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group"
+                        transition={{ delay: index * 0.05, duration: 0.4 }}
+                        className="bg-white rounded-2xl overflow-hidden shadow-lg"
                     >
                         {/* Image Section */}
                         <div className="relative h-64 overflow-hidden">
                             <img 
                                 src={service?.image} 
                                 alt={service?.name}
-                                className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                                className="w-full h-full object-cover"
                             />
                             {/* Category Badge */}
                             <div className="absolute top-4 left-4">
@@ -103,8 +119,18 @@ const Services = () => {
                                 </span>
                             </div>
                             {/* Favorite Icon */}
-                            <button className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm p-2 rounded-full hover:bg-rose-500 hover:text-white transition-colors">
-                                <Heart size={18} />
+                            <button 
+                                onClick={() => toggleFavorite(service._id)}
+                                className={`absolute top-4 right-4 backdrop-blur-sm p-2 rounded-full transition-all ${
+                                    favorites[service._id] 
+                                        ? 'bg-rose-500 text-white' 
+                                        : 'bg-white/90 text-gray-800 hover:bg-rose-100'
+                                }`}
+                            >
+                                <Heart 
+                                    size={18} 
+                                    fill={favorites[service._id] ? 'currentColor' : 'none'}
+                                />
                             </button>
                         </div>
 
@@ -139,7 +165,7 @@ const Services = () => {
                                     </p>
                                 </div>
                                 <Link to={`/details/${service?._id}`}>
-                                    <button className="bg-linear-to-r from-purple-600 to-pink-600 text-white px-6 py-2.5 rounded-lg font-semibold hover:from-purple-700 hover:to-pink-700 transform hover:scale-105 transition-all duration-200 shadow-md">
+                                    <button className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-2.5 rounded-lg font-semibold shadow-md">
                                         See Details
                                     </button>
                                 </Link>

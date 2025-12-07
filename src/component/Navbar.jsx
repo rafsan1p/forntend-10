@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { NavLink } from "react-router";
+import { NavLink } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
 import { signOut } from "firebase/auth";
 import auth from "../firebase/firebase.config";
@@ -7,10 +7,20 @@ import toast from "react-hot-toast";
 
 const Navbar = () => {
   const { user } = useContext(AuthContext);
-  const [isChecked, setIsChecked] = useState(false);
+  
+  // localStorage থেকে theme load করা
+  const [isChecked, setIsChecked] = useState(() => {
+    const savedTheme = localStorage.getItem('theme');
+    return savedTheme === 'dark';
+  });
 
   const handleThemeChange = () => {
-    setIsChecked((prev) => !prev);
+    setIsChecked((prev) => {
+      const newTheme = !prev;
+      // localStorage এ save করা
+      localStorage.setItem('theme', newTheme ? 'dark' : 'light');
+      return newTheme;
+    });
   };
 
   useEffect(() => {
@@ -200,8 +210,10 @@ const Navbar = () => {
           <input
             onClick={handleThemeChange}
             type="checkbox"
+            checked={isChecked}
             value="synthwave"
             className="theme-controller"
+            onChange={() => {}} 
           />
 
           <svg
