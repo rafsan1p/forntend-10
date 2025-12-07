@@ -24,10 +24,10 @@ const Navbar = () => {
   };
 
   return (
-    <div className="navbar bg-base-100 shadow-sm">
+    <div className="navbar bg-base-100 shadow-sm px-2 sm:px-4 fixed top-0 left-0 w-full z-50">
       <div className="navbar-start">
         <div className="dropdown">
-          <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+          <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden p-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5"
@@ -114,9 +114,18 @@ const Navbar = () => {
             )}
           </ul>
         </div>
-        <a className="btn btn-ghost text-xl">PetPaw</a>
+        <NavLink to="/" className="flex items-center gap-2 ml-1">
+          <div className="relative hidden sm:block">
+            <div className="w-10 h-10 bg-linear-to-br from-primary to-secondary rounded-full flex items-center justify-center">
+              <span className="text-2xl">🐾</span>
+            </div>
+          </div>
+          <span className="font-bold text-lg sm:text-xl bg-linear-to-r from-primary to-secondary bg-clip-text text-transparent">
+            PawMart
+          </span>
+        </NavLink>
       </div>
-      <div className="navbar-center hidden lg:flex ml-26">
+      <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
           <li>
             <NavLink
@@ -186,7 +195,7 @@ const Navbar = () => {
         </ul>
       </div>
 
-      <div className="navbar-end">
+      <div className="navbar-end flex items-center gap-2">
         <label className="toggle text-base-content">
           <input
             onClick={handleThemeChange}
@@ -235,22 +244,18 @@ const Navbar = () => {
             </g>
           </svg>
         </label>
-      </div>
 
-      {user && (
-        <div className="ml-4">
+        {user && (
           <button onClick={handleSignOut} className="btn btn-sm lg:btn-md">
             Logout
           </button>
-        </div>
-      )}
-      {!user && (
-        <div className="ml-4">
+        )}
+        {!user && (
           <NavLink to={"/login"} className="btn btn-sm lg:btn-md">
             Login
           </NavLink>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 };

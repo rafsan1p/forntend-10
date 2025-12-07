@@ -60,113 +60,72 @@ const MyServices = () => {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center min-h-[calc(100vh-200px)]">
-        <span className="loading loading-spinner loading-lg text-primary w-24 h-24"></span>
+      <div className="flex justify-center items-center min-h-screen">
+        <span className="loading loading-spinner loading-lg text-primary w-16 h-16 sm:w-20 sm:h-20"></span>
       </div>
     );
   }
 
   return (
-    <div className="min-h-[calc(100vh-200px)] shadow-xl p-4 sm:p-6 md:p-10 lg:p-14 space-y-4 sm:space-y-6">
-      <p className="font-bold text-xl sm:text-2xl">My Services</p>
-
-      {myServices.length === 0 ? (
-        <div className="text-center py-10">
-          <p className="text-xl text-gray-500">No services found!</p>
-        </div>
-      ) : (
-        <>
-          <div className="hidden md:block overflow-x-auto">
-            <table className="table w-full">
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Description</th>
-                  <th>Price</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                {myServices.map((service) => (
-                  <tr key={service._id}>
-                    <td>
-                      <div className="flex items-center gap-3">
-                        <div className="avatar">
-                          <div className="mask mask-squircle h-12 w-12">
-                            <img src={service?.image} alt="Service" />
-                          </div>
-                        </div>
-                        <div>
-                          <div className="font-bold">{service?.name}</div>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <p className="line-clamp-2">{service?.description}</p>
-                    </td>
-                    <td>{service?.price}$</td>
-                    <td className="flex gap-3">
-                      <button
-                        onClick={() => handleDelete(service?._id)}
-                        className="btn btn-error btn-xs"
-                      >
-                        Delete
-                      </button>
-                      <Link to={`/update-services/${service?._id}`}>
-                        <button className="btn btn-primary btn-xs">Edit</button>
-                      </Link>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+    <div className="min-h-screen p-2 sm:p-4 md:p-6 lg:p-10">
+      <div className="max-w-7xl mx-auto">
+        <div className="bg-base-100 shadow-xl rounded-lg p-4 sm:p-6 md:p-8">
+          <div className="mb-6">
+            <h2 className="font-bold text-xl sm:text-2xl md:text-3xl">My Services</h2>
+            <p className="text-sm text-gray-500 mt-1">Manage your listed services</p>
           </div>
 
-          <div className="md:hidden space-y-4">
-            {myServices.map((service) => (
-              <div
-                key={service._id}
-                className="bg-gray-50 rounded-lg p-4 space-y-3 border border-gray-200"
-              >
-                <div className="flex items-start gap-3">
-                  <div className="avatar shrink-0">
-                    <div className="mask mask-squircle h-16 w-16">
-                      <img src={service?.image} alt="Service" />
-                    </div>
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <h3 className="font-bold text-base sm:text-lg truncate">
+          {myServices.length === 0 ? (
+            <div className="text-center py-16">
+              <div className="text-6xl mb-4">📋</div>
+              <p className="text-lg sm:text-xl text-gray-500">No services found!</p>
+              <p className="text-sm text-gray-400 mt-2">Start by adding your first service</p>
+              <Link to="/add-services">
+                <button className="btn btn-primary mt-4">Add Service</button>
+              </Link>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+              {myServices.map((service) => (
+                <div
+                  key={service._id}
+                  className="card bg-base-200 shadow-lg hover:shadow-xl transition-all duration-300"
+                >
+                  <figure className="px-4 pt-4">
+                    <img
+                      src={service?.image}
+                      alt={service?.name}
+                      className="rounded-xl h-48 w-full object-cover"
+                    />
+                  </figure>
+                  <div className="card-body p-4">
+                    <h2 className="card-title text-base sm:text-lg">
                       {service?.name}
-                    </h3>
-                    <p className="text-sm text-gray-600 line-clamp-2 mt-1">
+                      <div className="badge badge-secondary">${service?.price}</div>
+                    </h2>
+                    <p className="text-sm text-gray-600 line-clamp-3">
                       {service?.description}
                     </p>
-                  </div>
-                </div>
-
-                <div className="flex items-center justify-between pt-2 border-t border-gray-200">
-                  <span className="font-semibold text-lg text-purple-600">
-                    {service?.price}$
-                  </span>
-                  <div className="flex gap-2">
-                    <button
-                      onClick={() => handleDelete(service?._id)}
-                      className="btn btn-error btn-sm text-xs"
-                    >
-                      Delete
-                    </button>
-                    <Link to={`/update-services/${service?._id}`}>
-                      <button className="btn btn-primary btn-sm text-xs">
-                        Edit
+                    <div className="card-actions justify-end mt-4">
+                      <button
+                        onClick={() => handleDelete(service?._id)}
+                        className="btn btn-error btn-sm"
+                      >
+                        🗑️ Delete
                       </button>
-                    </Link>
+                      <Link to={`/update-services/${service?._id}`}>
+                        <button className="btn btn-primary btn-sm">
+                          ✏️ Edit
+                        </button>
+                      </Link>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
-        </>
-      )}
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   );
 };

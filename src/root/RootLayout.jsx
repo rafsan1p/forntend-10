@@ -9,7 +9,7 @@ const RootLayout = () => {
             
             <Navbar></Navbar>
 
-            <div className="grow">
+            <div className="grow pt-16">
                 <Outlet></Outlet>
             </div>
             

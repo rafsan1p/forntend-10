@@ -1,7 +1,7 @@
 # WarmPaws - Pet Care in Winter
 
 ## Project Purpose
-WarmPaws is a simple website for pet owners who want to take care of their pets during winter season. Here you can find different pet care services like winter coats for dogs, grooming services, paw treatment and more. Users can browse services, view details and book appointments easily.
+PawMart is a simple website for pet owners who want to take care of their pets during winter season. Here you can find different pet care services like winter coats for dogs, grooming services, paw treatment and more. Users can browse services, view details and book appointments easily.
 
 ## Live URL
 🔗 [Live Website Link](https://rafsan11-pet-care.netlify.app/)

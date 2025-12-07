@@ -14,7 +14,7 @@ const Footer = () => {
               <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center">
                 <span className="text-2xl">🐾</span>
               </div>
-              <h3 className="text-xl sm:text-2xl font-bold">PetPaws</h3>
+              <h3 className="text-xl sm:text-2xl font-bold">PawMart</h3>
             </div>
             <p className="text-blue-200 text-sm sm:text-base mb-4">
               Keeping your furry friends warm, safe and healthy during winter season. Your trusted pet care partner.
@@ -96,7 +96,7 @@ const Footer = () => {
       <div className="border-t border-white/10">
         <div className="py-6">
           <p className="text-white text-base sm:text-lg font-medium text-center">
-            © 2025 PetPaws. All rights reserved.
+            © 2025 PawMart. All rights reserved.
           </p>
         </div>
       </div>
