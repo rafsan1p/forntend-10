@@ -1,6 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Heart, Home, DollarSign, Users } from 'lucide-react';
+import { useNavigate } from 'react-router';
+
 
 const WhyAdoptSection = () => {
     const reasons = [
@@ -29,6 +31,8 @@ const WhyAdoptSection = () => {
             color: "from-purple-500 to-violet-500"
         }
     ];
+    const navigate = useNavigate();
+    
 
     return (
         <div className="py-16 px-4 sm:px-8 md:px-16 lg:px-32 bg-linear-to-br from-amber-50 via-orange-50 to-rose-50 mt-10 md:mt-30">
@@ -86,7 +90,7 @@ const WhyAdoptSection = () => {
                     <p className="text-lg md:text-xl mb-6 opacity-90">
                         Adopt, don't shop. Browse our available pets and find your new best friend today!
                     </p>
-                    <button className="bg-white text-orange-600 px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-100 transform hover:scale-105 transition-all duration-200 shadow-lg">
+                    <button onClick={() => navigate('/services')} className="bg-white text-orange-600 px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-100 transform hover:scale-105 transition-all duration-200 shadow-lg">
                         Browse Available Pets →
                     </button>
                 </motion.div>

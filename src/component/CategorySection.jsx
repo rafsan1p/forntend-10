@@ -1,9 +1,25 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
 const CategorySection = () => {
     const navigate = useNavigate();
+    const [categoryCounts, setCategoryCounts] = useState({});
+
+    useEffect(() => {
+        fetch('https://missionscic10-eight.vercel.app/services')
+            .then(res => res.json())
+            .then(data => {
+                const counts = {
+                    'Pets': data.filter(item => item.category === 'Pets').length,
+                    'Food': data.filter(item => item.category === 'Food').length,
+                    'Accessories': data.filter(item => item.category === 'Accessories').length,
+                    'Care Products': data.filter(item => item.category === 'Care Products').length
+                };
+                setCategoryCounts(counts);
+            })
+            .catch(err => console.log(err));
+    }, []);
 
     const categories = [
         {
@@ -14,7 +30,6 @@ const CategorySection = () => {
             description: 'Find your perfect companion',
             image: 'https://images.unsplash.com/photo-1450778869180-41d0601e046e?w=500&q=80',
             bgColor: 'from-pink-500 to-rose-500',
-            count: '50+ Available'
         },
         {
             id: 2,
@@ -24,7 +39,6 @@ const CategorySection = () => {
             description: 'Nutritious meals for your pets',
             image: 'https://images.unsplash.com/photo-1589924691995-400dc9ecc119?w=500&q=80',
             bgColor: 'from-orange-500 to-amber-500',
-            count: '100+ Products'
         },
         {
             id: 3,
@@ -34,7 +48,6 @@ const CategorySection = () => {
             description: 'Toys, beds, and more',
             image: 'https://images.unsplash.com/photo-1591769225440-811ad7d6eab3?w=500&q=80',
             bgColor: 'from-purple-500 to-indigo-500',
-            count: '80+ Items'
         },
         {
             id: 4,
@@ -44,7 +57,6 @@ const CategorySection = () => {
             description: 'Health & grooming essentials',
             image: 'https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=500&q=80',
             bgColor: 'from-teal-500 to-cyan-500',
-            count: '60+ Products'
         }
     ];
 
@@ -58,7 +70,7 @@ const CategorySection = () => {
                 <motion.h2 
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="text-3xl md:text-4xl font-bold font-bold text-blue-500 dark:text-blue-300  tracking-tight mb-3"
+                    className="text-3xl md:text-4xl font-bold text-blue-500 dark:text-blue-300  tracking-tight mb-3"
                 >
                     Browse by Category
                 </motion.h2>
@@ -76,25 +88,22 @@ const CategorySection = () => {
                         onClick={() => handleCategoryClick(category.name)}
                         className="relative group cursor-pointer rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300"
                     >
-                        {/* Background Image */}
                         <div className="h-64 relative overflow-hidden">
                             <img 
                                 src={category.image} 
                                 alt={category.title}
                                 className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
                             />
-                            {/* Gradient Overlay */}
                             <div className={`absolute inset-0 bg-linear-to-t ${category.bgColor} opacity-70 group-hover:opacity-80 transition-opacity`}></div>
                         </div>
 
-                        {/* Content */}
                         <div className="absolute inset-0 flex flex-col justify-end p-6 text-white">
                             <div className="text-5xl mb-3">{category.icon}</div>
                             <h3 className="text-2xl font-bold mb-2">{category.title}</h3>
                             <p className="text-sm text-white/90 mb-2">{category.description}</p>
                             <div className="flex items-center justify-between">
                                 <span className="text-xs font-semibold bg-white/20 px-3 py-1 rounded-full backdrop-blur-sm">
-                                    {category.count}
+                                    {categoryCounts[category.name] || 0} Available
                                 </span>
                                 <svg 
                                     className="w-6 h-6 transform group-hover:translate-x-2 transition-transform" 

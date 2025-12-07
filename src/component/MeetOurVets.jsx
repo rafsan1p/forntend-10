@@ -1,4 +1,5 @@
 import React from "react";
+import toast from "react-hot-toast";
 
 const vets = [
   {
@@ -46,7 +47,8 @@ const MeetOurVets = () => {
                 <h3 className="card-title text-primary">{vet.name}</h3>
                 <p className="text-sm font-semibold">{vet.specialization}</p>
                 <p className="opacity-70 text-sm">{vet.experience}</p>
-                <button className="btn btn-primary btn-sm mt-3 w-full">
+                <button onClick={() => toast.success(`Appointment booked with ${vet.name}!`)}
+                  className="btn btn-primary btn-sm mt-3 w-full">
                   Book Appointment
                 </button>
               </div>
