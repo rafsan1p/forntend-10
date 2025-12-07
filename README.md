@@ -1,62 +1,62 @@
-# WarmPaws - Pet Care in Winter
+# 🐾 PawMart
 
-## Project Purpose
-PawMart is a simple website for pet owners who want to take care of their pets during winter season. Here you can find different pet care services like winter coats for dogs, grooming services, paw treatment and more. Users can browse services, view details and book appointments easily.
+A community platform connecting pet owners and buyers for pet adoption and pet care products.
 
-## Live URL
-🔗 [Live Website Link](https://rafsan11-pet-care.netlify.app/)
-
-## Key Features
-
-1. **User Authentication**
-   - Users can sign up and login with email/password
-   - Google login option available
-   - Secure authentication with Firebase
-   - Profile update feature with name and photo
-
-2. **Service Browsing**
-   - View all winter pet care services
-   - See popular services on homepage
-   - Each service shows price, rating and available slots
-   - Beautiful card design for easy browsing
-
-3. **Service Details**
-   - Protected route - only logged in users can view details
-   - Complete information about each service
-   - Provider details with contact info
-   - Book service button for appointments
-
-4. **Responsive Design**
-   - Works perfectly on mobile phones
-   - Tablet friendly layout
-   - Desktop optimized view
-   - Smooth navigation on all devices
-
-5. **Modern UI/UX**
-   - Clean and simple design
-   - Smooth animations with Framer Motion
-   - Beautiful slider for hero section using Swiper
-   - Easy to use interface
-
-## NPM Packages Used
-
-- **react-router-dom** - For page navigation and routing
-- **firebase** - For user authentication and login system
-- **swiper** - Beautiful slider for homepage hero section
-- **framer-motion** - Smooth animations on service cards
-- **react-icons** - Icons used throughout the website
-- **react-hot-toast** - Toast notifications for success/error messages
-
-## Technologies Used
-- React.js
-- Firebase Authentication
-- Tailwind CSS
-- DaisyUI
-- JavaScript (ES6+)
-
-
-## Contact
-For any questions or suggestions, feel free to reach out!
+**Live Site:** [https://missionscic10.web.app](https://missionscic10.web.app)
 
 ---
-Made with ❤️ for pet lovers
+
+## 📋 Features
+
+- **Pet Adoption & Shopping** - Browse pets for adoption and purchase pet supplies all in one place
+- **Email Verification System** - Secure registration with email verification to prevent fake accounts
+- **Category Filtering** - Filter listings by Pets, Food, Accessories, and Care Products
+- **User Dashboard** - Add, edit, and delete your own listings with full control
+- **Order Management** - Track all your orders and download reports as PDF
+- **Responsive Design** - Works seamlessly on mobile, tablet, and desktop devices
+
+---
+
+## 🛠️ Built With
+
+**Frontend:** React.js | Firebase | Tailwind CSS | DaisyUI | React Router | Framer Motion | Axios  
+**Backend:** Node.js | Express.js | MongoDB  
+**Tools:** jsPDF | SweetAlert2 | React Hot Toast | Lucide React
+
+---
+
+## 📦 NPM Packages
+
+```json
+{
+  "react": "^19.0.0",
+  "react-router-dom": "^7.1.1",
+  "firebase": "^11.1.0",
+  "axios": "^1.7.9",
+  "react-hot-toast": "^2.4.1",
+  "sweetalert2": "^11.15.3",
+  "jspdf": "^2.5.2",
+  "jspdf-autotable": "^3.8.4",
+  "framer-motion": "^11.18.0",
+  "lucide-react": "^0.468.0"
+}
+```
+
+---
+
+## 🔑 Key Functionalities
+
+- **Authentication:** Email/password and Google login with email verification
+- **Private Routes:** Protected pages accessible only to logged-in users
+- **CRUD Operations:** Create, read, update, and delete listings
+- **Order System:** Complete order flow with buyer information and pickup details
+- **PDF Export:** Download order history as PDF report
+- **Loading States:** Smooth loading spinners during data fetching
+- **Toast Notifications:** Success and error messages for all operations
+
+---
+
+## 📞 Contact
+
+**Developer:** Rubayet Rafsan  
+**Email:** rubayetrafsan605@gmail.com
