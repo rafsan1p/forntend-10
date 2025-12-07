@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useLayoutEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router';
 import { AuthContext } from '../Provider/AuthProvider';
 import { updateProfile } from 'firebase/auth';
@@ -6,6 +6,12 @@ import auth from '../firebase/firebase.config';
 import toast from 'react-hot-toast';
 
 const Register = () => {
+
+    useLayoutEffect(() => {
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+      }, []);
+      
     const {registerWithEmailPassword, sendVerificationEmail, logOut, handleGoogleSignin, setUser} = useContext(AuthContext);
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);

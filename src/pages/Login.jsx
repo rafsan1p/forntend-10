@@ -1,11 +1,17 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
-import React, { useContext, useState } from "react";
+import React, { useContext, useLayoutEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
 import auth from "../firebase/firebase.config";
 import { AuthContext } from "../Provider/AuthProvider";
 import toast from "react-hot-toast";
 
 const Login = () => {
+
+  useLayoutEffect(() => {
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+  }, []);
+
   const { setUser, handleGoogleSignin, logOut } = useContext(AuthContext);
   const location = useLocation();
   const navigate = useNavigate();

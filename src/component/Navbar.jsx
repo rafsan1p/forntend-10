@@ -8,7 +8,6 @@ import toast from "react-hot-toast";
 const Navbar = () => {
   const { user } = useContext(AuthContext);
   
-  // localStorage থেকে theme load করা
   const [isChecked, setIsChecked] = useState(() => {
     const savedTheme = localStorage.getItem('theme');
     return savedTheme === 'dark';
@@ -17,7 +16,6 @@ const Navbar = () => {
   const handleThemeChange = () => {
     setIsChecked((prev) => {
       const newTheme = !prev;
-      // localStorage এ save করা
       localStorage.setItem('theme', newTheme ? 'dark' : 'light');
       return newTheme;
     });
